@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BYBIT affiliate — My Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+
+:root{
+  --gold:#F0B429;--gold-dark:#D49A17;--gold-soft:rgba(240,180,41,0.10);
+  --bg:#F7F8FA;--white:#FFFFFF;
+  --sidebar-bg:#1A1D2E;--sidebar-text:#8A91A8;
+  --text:#1A1D2E;--text2:#4B5470;--muted:#8A91A8;
+  --border:#E8EAF0;--border2:#DDE0EA;
+  --green:#0CAB6B;--green-soft:rgba(12,171,107,0.10);
+  --red:#E24B4A;--red-soft:rgba(226,75,74,0.09);
+  --shadow:0 1px 4px rgba(26,29,46,0.06);
+  --shadow-card:0 2px 10px rgba(26,29,46,0.07);
+  --sidebar:220px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;}
+.sidebar{width:var(--sidebar);background:var(--sidebar-bg,#1A1D2E);border-right:none;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50;overflow-y:auto;}
+.sidebar-logo{padding:20px 18px 16px;border-bottom:1px solid var(--border2);}
+.sidebar-logo .brand{color:var(--gold);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;}
+.sidebar-logo .sub{color:#fff;font-size:13px;font-weight:600;color:var(--text);margin-top:2px;font-family:'Inter',sans-serif;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;color:#8A91A8;cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none;}
+.nav-item:hover{background:var(--bg);color:var(--text);}
+.nav-item.active{background:rgba(240,180,41,0.10);color:var(--gold);border-left:2px solid var(--gold);font-weight:600;}
+.nav-item i{font-size:16px;flex-shrink:0;}
+.nav-badge{margin-left:auto;background:var(--gold);color:#000;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;}
+.sidebar-footer{margin-top:auto;border-top:1px solid rgba(255,255,255,0.07);padding:14px 18px;}
+.help-text{font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:10px;line-height:1.5;}
+.user-chip{display:flex;align-items:flex-start;gap:9px;}
+.avatar{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#e8823a);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:11px;font-weight:800;color:#000;flex-shrink:0;}
+.user-name{font-size:11px;font-weight:600;color:#fff;}
+.user-email{font-size:9px;color:rgba(255,255,255,0.38);margin-top:1px;}
+.user-rank{display:inline-block;font-size:8px;background:var(--gold-soft);color:var(--gold);border-radius:4px;padding:2px 5px;margin-top:3px;font-weight:600;}
+.topbar{position:fixed;top:0;left:var(--sidebar);right:0;height:56px;background:var(--white);border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:40;}
+.topbar-left{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--muted);}
+.topbar-right{display:flex;align-items:center;gap:16px;}
+.lang-btn{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted2);cursor:pointer;padding:6px 10px;border-radius:6px;background:var(--bg);border:1px solid var(--border);}
+.icon-btn{width:34px;height:34px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted2);}
+.topbar-avatar{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#e8823a);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:11px;font-weight:800;color:#000;cursor:pointer;text-decoration:none;}
+.main{margin-left:var(--sidebar);margin-top:56px;padding:28px 32px;flex:1;}
+.page-title{font-family:'Inter',sans-serif;font-size:24px;font-weight:800;margin-bottom:24px;}
+.card{background:var(--white);border:1px solid var(--border);box-shadow:0 2px 10px rgba(26,29,46,0.07);border-radius:14px;padding:20px 22px;margin-bottom:16px;}
+.card-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.stat-box{background:var(--bg);border:1px solid var(--border2);border-radius:12px;padding:18px;}
+.stat-box label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:8px;}
+.stat-box .val{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;}
+.stat-box .val.green{color:var(--green);}
+.stat-box .val.gold{color:var(--gold);}
+.tx-table{width:100%;border-collapse:collapse;}
+.tx-table th{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.tx-table td{padding:13px 12px;font-size:13px;border-bottom:1px solid var(--border2);}
+.tx-table tr:last-child td{border-bottom:none;}
+.tx-table tr:hover td{background:var(--bg);}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;}
+.badge.green{background:var(--green-soft);color:var(--green);}
+.badge.gold{background:var(--gold-soft);color:var(--gold);}
+/* Tier ladder */
+.tier-row{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:10px;border:1px solid var(--border2);margin-bottom:10px;background:var(--bg);transition:all .2s;}
+.tier-row.current{border-color:var(--gold);background:rgba(240,180,41,0.06);}
+.tier-num{font-family:'Inter',sans-serif;font-size:18px;font-weight:800;width:36px;color:var(--muted);}
+.tier-row.current .tier-num{color:var(--gold);}
+.tier-info{flex:1;}
+.tier-name{font-weight:600;font-size:13px;}
+.tier-range{font-size:11px;color:var(--muted);margin-top:2px;}
+.tier-rate{font-family:'Inter',sans-serif;font-size:18px;font-weight:800;color:var(--green);}
+.current-tag{font-size:10px;background:var(--gold);color:#000;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-logo"><div class="brand">BYBIT affiliate</div><div class="sub">Affiliates</div></div>
+  <nav style="padding:10px 0;">
+    <a class="nav-item" href="dashboard.html"><i class="ti ti-layout-dashboard"></i> Overview</a>
+    <a class="nav-item" href="balance.html"><i class="ti ti-wallet"></i> Account Balance</a>
+    <a class="nav-item active" href="commissions.html"><i class="ti ti-percentage"></i> Commissions <span class="nav-badge">3</span></a>
+    <a class="nav-item" href="promotion.html"><i class="ti ti-speakerphone"></i> Promotion Tools</a>
+    <a class="nav-item" href="campaigns.html"><i class="ti ti-flag"></i> Campaigns</a>
+    <a class="nav-item" href="performance.html"><i class="ti ti-chart-line"></i> My Performance</a>
+    <a class="nav-item" href="academy.html"><i class="ti ti-school"></i> Academy</a>
+    <a class="nav-item" href="resources.html"><i class="ti ti-book-2"></i> Resources</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="help-text">Need help? Contact your account manager</div>
+    <div class="user-chip"><div class="avatar">JW</div><div><div class="user-name">BYBIT affiliate</div><div class="user-email">jackwaycynotadev</div><div class="user-rank">Honourable Minister</div></div></div>
+  </div>
+</aside>
+<div class="topbar">
+  <span class="topbar-left">Commissions</span>
+  <div class="topbar-right">
+    <div class="lang-btn"><i class="ti ti-world" style="font-size:14px"></i> EN</div>
+    <div class="icon-btn"><i class="ti ti-bell" style="font-size:16px"></i></div>
+    <a href="profile.html" class="topbar-avatar" text-decoration:none>JW</a>
+  </div>
+</div>
+<main class="main">
+  <div class="page-title">Commissions</div>
+  <div class="grid-3">
+    <div class="stat-box"><label>Total Commission Earned</label><div class="val green">133.27 <span style="font-size:12px;color:var(--muted)">USDT</span></div></div>
+    <div class="stat-box"><label>This Month</label><div class="val gold">42.74 <span style="font-size:12px;color:var(--muted)">USDT</span></div></div>
+    <div class="stat-box"><label>Pending Clearance</label><div class="val" style="color:var(--muted2)">74.23 <span style="font-size:12px;color:var(--muted)">USDT</span></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Commission Tier Ladder</div>
+      <div class="tier-row"><div class="tier-num">1</div><div class="tier-info"><div class="tier-name">Bronze</div><div class="tier-range">0 – 100 sign-ups</div></div><div class="tier-rate">20%</div></div>
+      <div class="tier-row"><div class="tier-num">2</div><div class="tier-info"><div class="tier-name">Silver</div><div class="tier-range">101 – 300 sign-ups</div></div><div class="tier-rate">28%</div></div>
+      <div class="tier-row"><div class="tier-num">3</div><div class="tier-info"><div class="tier-name">Gold</div><div class="tier-range">301 – 600 sign-ups</div></div><div class="tier-rate">33%</div></div>
+      <div class="tier-row current"><div class="tier-num">4</div><div class="tier-info"><div class="tier-name">Platinum <span class="current-tag">YOU ARE HERE</span></div><div class="tier-range">601 – 900 sign-ups</div></div><div class="tier-rate">38%</div></div>
+      <div class="tier-row"><div class="tier-num">5</div><div class="tier-info"><div class="tier-name">Diamond</div><div class="tier-range">900+ sign-ups</div></div><div class="tier-rate">45%</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Sub-Affiliate Earnings</div>
+      <div style="background:var(--bg);border-radius:10px;padding:16px;margin-bottom:12px;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Your sub-affiliates earn you</div>
+        <div style="font-family:'Inter',sans-serif;font-size:28px;font-weight:800;color:var(--green);">0% – 10%</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">of their referred trades volume</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Sub-affiliates you invite earn their own commission while you earn a percentage on top. Invite more sub-affiliates to grow passive income.</div>
+      <div style="margin-top:14px;"><a href="promotion.html" style="display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:13px;font-weight:600;text-decoration:none;">Invite Sub-Affiliates <i class="ti ti-arrow-right"></i></a></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Recent Commission Records</div>
+    <table class="tx-table">
+      <thead><tr><th>Date</th><th>Client UID</th><th>Trade Pair</th><th>Trade Volume</th><th>Rate</th><th>Commission</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>2026-05-25</td><td style="color:var(--muted)">UID••4421</td><td>BTC/USDT</td><td style="color:var(--muted2)">32,680 USDT</td><td>38%</td><td class="amt-pos" style="color:var(--green);font-weight:600;">+12.44 USDT</td><td><span class="badge green">Completed</span></td></tr>
+        <tr><td>2026-05-20</td><td style="color:var(--muted)">UID••7731</td><td>ETH/USDT</td><td style="color:var(--muted2)">21,630 USDT</td><td>38%</td><td class="amt-pos" style="color:var(--green);font-weight:600;">+8.22 USDT</td><td><span class="badge green">Completed</span></td></tr>
+        <tr><td>2026-05-18</td><td style="color:var(--muted)">UID••2209</td><td>SOL/USDT</td><td style="color:var(--muted2)">57,578 USDT</td><td>38%</td><td class="amt-pos" style="color:var(--green);font-weight:600;">+21.88 USDT</td><td><span class="badge green">Completed</span></td></tr>
+        <tr><td>2026-05-15</td><td style="color:var(--muted)">UID••8843</td><td>BTC/USDT</td><td style="color:var(--muted2)">195,342 USDT</td><td>38%</td><td class="amt-pos" style="color:var(--green);font-weight:600;">+74.23 USDT</td><td><span class="badge gold">Pending</span></td></tr>
+        <tr><td>2026-05-12</td><td style="color:var(--muted)">UID••5512</td><td>XRP/USDT</td><td style="color:var(--muted2)">44,210 USDT</td><td>38%</td><td class="amt-pos" style="color:var(--green);font-weight:600;">+16.80 USDT</td><td><span class="badge green">Completed</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BYBIT affiliate — My Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+:root{
+  --gold:#F0B429;--gold-dark:#D49A17;--gold-soft:rgba(240,180,41,0.10);
+  --bg:#F7F8FA;--white:#FFFFFF;
+  --sidebar-bg:#1A1D2E;--sidebar-text:#8A91A8;
+  --text:#1A1D2E;--text2:#4B5470;--muted:#8A91A8;
+  --border:#E8EAF0;--border2:#DDE0EA;
+  --green:#0CAB6B;--green-soft:rgba(12,171,107,0.10);
+  --red:#E24B4A;--red-soft:rgba(226,75,74,0.09);
+  --shadow:0 1px 4px rgba(26,29,46,0.06);
+  --shadow-card:0 2px 10px rgba(26,29,46,0.07);
+  --sw:220px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;font-size:14px;}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sw);background:var(--sidebar-bg);display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50;overflow-y:auto;}
+.sb-logo{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.sb-logo .brand{font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--gold);text-transform:uppercase;}
+.sb-logo .sub{font-size:13px;font-weight:600;color:#fff;margin-top:3px;}
+.nav{flex:1;padding:8px 0;}
+.nav a{display:flex;align-items:center;gap:11px;padding:10px 20px;font-size:13px;color:var(--sidebar-text);text-decoration:none;border-left:3px solid transparent;transition:all .15s;}
+.nav a:hover{background:rgba(255,255,255,0.05);color:#fff;}
+.nav a.active{background:rgba(240,180,41,0.10);color:var(--gold);border-left-color:var(--gold);font-weight:600;}
+.nav a i{font-size:17px;flex-shrink:0;}
+.nbadge{margin-left:auto;background:var(--gold);color:#000;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;}
+.sb-foot{border-top:1px solid rgba(255,255,255,0.07);padding:16px 20px;}
+.sb-help{font-size:11px;color:rgba(255,255,255,0.30);margin-bottom:12px;line-height:1.6;}
+.uc{display:flex;align-items:flex-start;gap:10px;}
+.uav{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#e87b2a);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#000;flex-shrink:0;}
+.un{font-size:12px;font-weight:600;color:#fff;}
+.ue{font-size:10px;color:rgba(255,255,255,0.38);margin-top:1px;}
+.ur{display:inline-block;font-size:9px;background:rgba(240,180,41,0.15);color:var(--gold);border-radius:4px;padding:2px 6px;margin-top:4px;font-weight:600;}
+
+/* ── TOPBAR ── */
+.topbar{position:fixed;top:0;left:var(--sw);right:0;height:58px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 30px;z-index:40;box-shadow:var(--shadow);}
+.tb-left{font-size:13px;font-weight:600;color:var(--muted);}
+.tb-right{display:flex;align-items:center;gap:12px;}
+.lang-btn{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;padding:6px 12px;border-radius:7px;background:var(--bg);border:1px solid var(--border);}
+.ico-btn{width:36px;height:36px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);}
+.ico-btn:hover{background:var(--border);}
+.tav{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#e87b2a);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#000;cursor:pointer;text-decoration:none;}
+
+/* ── MAIN ── */
+.main{margin-left:var(--sw);margin-top:58px;padding:28px 30px;flex:1;}
+.pg-title{font-size:22px;font-weight:700;color:var(--text);margin-bottom:24px;}
+
+/* ── CARDS ── */
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px 24px;box-shadow:var(--shadow-card);}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+
+/* ── TIME TABS ── */
+.ttabs{display:flex;gap:2px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px;}
+.ttab{font-size:11px;padding:5px 11px;border-radius:6px;cursor:pointer;color:var(--muted);font-weight:500;transition:all .18s;border:none;background:transparent;}
+.ttab.on{background:var(--gold);color:#000;font-weight:700;box-shadow:0 1px 4px rgba(240,180,41,0.25);}
+.ttab:not(.on):hover{background:var(--border2);color:var(--text);}
+
+/* ── SECTION HDR ── */
+.shdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.ctitle{font-size:13px;font-weight:700;color:var(--text);}
+
+/* ── OVERVIEW META ── */
+.ov-meta{font-size:11px;color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:5px;}
+
+/* ── STATS GRID ── */
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.sb label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:6px;}
+.sv{font-size:26px;font-weight:700;color:var(--text);line-height:1.1;transition:all .3s;}
+.sv.hl{color:var(--text);}
+.su{font-size:12px;color:var(--muted);font-weight:400;margin-left:3px;}
+.sc{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;margin-top:5px;}
+.sc.up{color:var(--green);}
+.sc.dn{color:var(--red);}
+
+/* ── CHART ── */
+.chart-wrap{background:var(--bg);border:1px solid var(--border);border-radius:10px;height:90px;display:flex;align-items:flex-end;padding:10px 8px 0;gap:3px;margin-top:16px;overflow:hidden;}
+.cb{flex:1;border-radius:3px 3px 0 0;background:var(--gold);opacity:0.2;transition:all .4s;}
+.cb.lit{opacity:0.75;}
+.cb:hover{opacity:1;cursor:pointer;}
+
+/* ── QUICK STATS ── */
+.qs{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);}
+.qi{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.qi.gold{background:var(--gold-soft);color:var(--gold);}
+.qi.green{background:var(--green-soft);color:var(--green);}
+.qi.blue{background:rgba(80,130,255,0.10);color:#5082ff;}
+.ql{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;}
+.qv{font-size:20px;font-weight:700;color:var(--text);margin-top:2px;transition:all .3s;}
+
+/* ── BALANCE ── */
+.bal-big{font-size:26px;font-weight:700;color:var(--text);}
+.bal-unit{font-size:12px;color:var(--muted);margin-left:4px;font-weight:400;}
+.bal-pend{font-size:12px;color:var(--green);margin:6px 0 14px;display:flex;align-items:center;gap:5px;}
+.brow{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--border);}
+.brow:last-of-type{border-bottom:none;}
+.bdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.bdot.g{background:var(--green);}
+.bdot.r{background:var(--red);}
+.bamt{font-size:12px;color:var(--text);font-weight:500;}
+.blbl{font-size:11px;color:var(--muted);margin-left:auto;}
+.vbal{display:flex;align-items:center;gap:5px;color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;margin-top:14px;text-decoration:none;}
+.vbal:hover{color:var(--gold);}
+
+/* ── PROMO ── */
+.plinks{display:flex;gap:14px;}
+.plink{font-size:12px;color:var(--gold);cursor:pointer;font-weight:600;}
+.plink:hover{text-decoration:underline;}
+.rlbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
+.rcrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.rcode{font-size:20px;font-weight:700;color:var(--text);}
+.pbtn{font-size:11px;border:1px solid var(--border2);border-radius:6px;padding:5px 12px;cursor:pointer;color:var(--text2);background:var(--bg);font-weight:500;}
+.pbtn:hover{border-color:var(--gold);color:var(--gold);}
+.rbox{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;}
+.rtxt{font-size:11px;color:var(--text2);word-break:break-all;flex:1;}
+.cbtn{flex-shrink:0;background:var(--gold-soft);border:none;border-radius:5px;padding:5px 10px;font-size:10px;color:var(--gold);font-weight:700;cursor:pointer;}
+.cbtn:hover{background:var(--gold);color:#000;}
+
+/* ── TIER ── */
+.trate{font-size:34px;font-weight:700;color:var(--green);line-height:1;}
+.tdesc{font-size:12px;color:var(--muted);margin-top:4px;margin-bottom:16px;}
+.tsbox{background:var(--bg);border-radius:8px;padding:12px 16px;margin-bottom:12px;}
+.tslbl{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;}
+.tsval{font-size:16px;font-weight:700;color:var(--text2);}
+.pbar{height:6px;background:var(--border);border-radius:4px;overflow:hidden;margin-top:10px;}
+.pfill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--green),#4DF5B0);}
+
+/* ── ACTIVITY ── */
+.arow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.arow:last-child{border-bottom:none;}
+.aico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.aico.earn{background:var(--green-soft);color:var(--green);}
+.aico.wdraw{background:var(--red-soft);color:var(--red);}
+.aico.ref{background:var(--gold-soft);color:var(--gold);}
+.atitle{font-size:13px;font-weight:500;color:var(--text);}
+.asub{font-size:11px;color:var(--muted);margin-top:1px;}
+.aamt{margin-left:auto;text-align:right;}
+.av{font-size:13px;font-weight:700;}
+.av.g{color:var(--green);}
+.av.r{color:var(--red);}
+.at2{font-size:10px;color:var(--muted);margin-top:2px;}
+
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform .3s;}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .topbar{left:0;}
+  .g2,.g3{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="brand">BYBIT Affiliate</div>
+    <div class="sub">Affiliates</div>
+  </div>
+  <nav class="nav">
+    <a href="dashboard.html" class="active"><i class="ti ti-layout-dashboard"></i> Overview</a>
+    <a href="balance.html"><i class="ti ti-wallet"></i> Account Balance</a>
+    <a href="commissions.html"><i class="ti ti-percentage"></i> Commissions <span class="nbadge">3</span></a>
+    <a href="promotion.html"><i class="ti ti-speakerphone"></i> Promotion Tools</a>
+    <a href="campaigns.html"><i class="ti ti-flag"></i> Campaigns</a>
+    <a href="performance.html"><i class="ti ti-chart-line"></i> My Performance</a>
+    <a href="academy.html"><i class="ti ti-school"></i> Academy</a>
+    <a href="resources.html"><i class="ti ti-book-2"></i> Resources</a>
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-help">Need help? Contact your account manager</div>
+    <div class="uc">
+      <div class="uav">JW</div>
+      <div>
+        <div class="un">BYBIT affiliate</div>
+        <div class="ue">BYBIT affiliate</div>
+        <div class="ur">Honourable Minister</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="ico-btn" onclick="document.getElementById('sidebar').classList.toggle('open')" style="display:none;" id="mobBtn">
+      <i class="ti ti-menu-2"></i>
+    </div>
+    <span class="tb-left">Affiliate Portal</span>
+  </div>
+  <div class="tb-right">
+    <div class="lang-btn"><i class="ti ti-world" style="font-size:14px"></i> EN</div>
+    <div class="ico-btn"><i class="ti ti-bell" style="font-size:16px"></i></div>
+    <a href="#" class="tav">JW</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="pg-title">My Dashboard</div>
+
+  <!-- QUICK STATS -->
+  <div class="g3">
+    <div class="qs">
+      <div class="qi gold"><i class="ti ti-users"></i></div>
+      <div>
+        <div class="ql">Total Sign-ups</div>
+        <div class="qv" id="qs-signups">775</div>
+      </div>
+    </div>
+    <div class="qs">
+      <div class="qi green"><i class="ti ti-currency-dollar"></i></div>
+      <div>
+        <div class="ql">Total Commission</div>
+        <div class="qv" id="qs-commission">133.27 <span style="font-size:12px;color:var(--muted);font-weight:400;">USDT</span></div>
+      </div>
+    </div>
+    <div class="qs">
+      <div class="qi blue"><i class="ti ti-chart-bar"></i></div>
+      <div>
+        <div class="ql">Clients Traded</div>
+        <div class="qv" id="qs-traded">879</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW + BALANCE -->
+  <div class="g2">
+    <!-- Overview -->
+    <div class="card">
+      <div class="shdr">
+        <span class="ctitle">Account Overview</span>
+        <div class="ttabs">
+          <button class="ttab" onclick="setTab(this,'24H')">24H</button>
+          <button class="ttab" onclick="setTab(this,'7D')">7D</button>
+          <button class="ttab on" onclick="setTab(this,'1M')">1M</button>
+          <button class="ttab" onclick="setTab(this,'1Y')">1Y</button>
+          <button class="ttab" onclick="setTab(this,'All')">All</button>
+        </div>
+      </div>
+      <div class="ov-meta" id="ovMeta"><i class="ti ti-calendar" style="font-size:12px"></i> Data from 2026-04-26 – 2026-07-01</div>
+      <div class="sg">
+        <div class="sb">
+          <label>No. of Sign-ups</label>
+          <div class="sv" id="st-signups">137</div>
+          <div class="sc up" id="sc-signups"><i class="ti ti-trending-up"></i> +12.4%</div>
+        </div>
+        <div class="sb">
+          <label>Clients' Trading Volume</label>
+          <div class="sv hl" id="st-volume">69,536,748<span class="su">.57 USDT</span></div>
+          <div class="sc up" id="sc-volume"><i class="ti ti-trending-up"></i> +8.7%</div>
+        </div>
+        <div class="sb">
+          <label>First Time Deposits</label>
+          <div class="sv" id="st-ftd">64</div>
+          <div class="sc up" id="sc-ftd"><i class="ti ti-trending-up"></i> +5.2%</div>
+        </div>
+        <div class="sb">
+          <label>Clients Who Traded</label>
+          <div class="sv" id="st-traded">508</div>
+          <div class="sc up" id="sc-traded"><i class="ti ti-trending-up"></i> +18.1%</div>
+        </div>
+      </div>
+      <div class="chart-wrap" id="chartArea"></div>
+    </div>
+
+    <!-- Balance -->
+    <div class="card">
+      <div class="shdr">
+        <span class="ctitle">Account Balance</span>
+        <span style="font-size:11px;color:var(--muted);">Updated just now</span>
+      </div>
+      <div class="bal-big">≈ 133.27476224<span class="bal-unit">USDT</span></div>
+      <div class="bal-pend"><i class="ti ti-clock" style="font-size:13px"></i> + 74.23 USDT pending</div>
+      <div class="brow"><span class="bdot g"></span><span class="bamt">+ 133.27476224 USDT</span><span class="blbl">Commission</span></div>
+      <div class="brow"><span class="bdot r"></span><span class="bamt">- 162.53359276 USDT</span><span class="blbl">Withdrawal</span></div>
+      <div class="brow"><span class="bdot g"></span><span class="bamt">+ 162.53359276 USDT</span><span class="blbl">Commission</span></div>
+      <a class="vbal" href="balance.html">View Balance <i class="ti ti-arrow-right" style="font-size:14px"></i></a>
+    </div>
+  </div>
+
+  <!-- PROMO + TIER -->
+  <div class="g2">
+    <!-- Promo -->
+    <div class="card">
+      <div class="shdr">
+        <span class="ctitle">My Promotion Tools</span>
+        <div class="plinks">
+          <span class="plink">Manage</span>
+          <span class="plink">Invite Sub-Affiliates</span>
+        </div>
+      </div>
+      <div class="rlbl">Referral Code</div>
+      <div class="rcrow">
+        <div class="rcode">rqqyjpj</div>
+        <button class="pbtn">Personalize</button>
+      </div>
+      <div class="rlbl" style="margin-bottom:6px;">Referral Link / My Sign-Up Page</div>
+      <div class="rbox">
+        <span class="rtxt">https://www.bybit.com/invite?ref=rqqyjpj</span>
+        <button class="cbtn" onclick="copyRef('https://www.bybit.com/invite?ref=rqqyjpj',this)">COPY</button>
+      </div>
+      <div style="margin-top:10px;">
+        <a href="https://www.bybit.com/invite?ref=rqqyjpj" target="_blank" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--gold);font-weight:600;text-decoration:none;">
+          <i class="ti ti-external-link" style="font-size:13px;"></i> Open Referral Page
+        </a>
+      </div>
+    </div>
+
+    <!-- Tier -->
+    <div class="card">
+      <div class="shdr">
+        <span class="ctitle">My Commission Tier</span>
+        <span style="font-size:11px;color:var(--green);font-weight:600;">Active</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">Profits from your clients' trades</div>
+      <div class="trate">38%</div>
+      <div class="tdesc">Commission rate on all referred trades</div>
+      <div class="tsbox">
+        <div class="tslbl">Your Sub-Affiliates' Earnings</div>
+        <div class="tsval">0% – 10%</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:8px;"><span>Tier Progress</span><span>38 / 100</span></div>
+      <div class="pbar"><div class="pfill" style="width:38%"></div></div>
+    </div>
+  </div>
+
+  <!-- RECENT ACTIVITY -->
+  <div class="card">
+    <div class="shdr">
+      <span class="ctitle">Recent Activity</span>
+      <span style="font-size:12px;color:var(--gold);cursor:pointer;font-weight:600;">View All →</span>
+    </div>
+    <div class="arow">
+      <div class="aico earn"><i class="ti ti-coins"></i></div>
+      <div><div class="atitle">Commission Earned</div><div class="asub">From client trade — BTC/USDT</div></div>
+      <div class="aamt"><div class="av g">+ 12.4400 USDT</div><div class="at2">2 hrs ago</div></div>
+    </div>
+    <div class="arow">
+      <div class="aico ref"><i class="ti ti-user-plus"></i></div>
+      <div><div class="atitle">New Referral Sign-up</div><div class="asub">Via referral link — rqqyjpj</div></div>
+      <div class="aamt"><div class="av g">+1 User</div><div class="at2">5 hrs ago</div></div>
+    </div>
+    <div class="arow">
+      <div class="aico wdraw"><i class="ti ti-arrow-up-right"></i></div>
+      <div><div class="atitle">Withdrawal Processed</div><div class="asub">To external wallet — USDT TRC20</div></div>
+      <div class="aamt"><div class="av r">- 50.0000 USDT</div><div class="at2">1 day ago</div></div>
+    </div>
+    <div class="arow">
+      <div class="aico earn"><i class="ti ti-coins"></i></div>
+      <div><div class="atitle">Commission Earned</div><div class="asub">From client trade — ETH/USDT</div></div>
+      <div class="aamt"><div class="av g">+ 8.2200 USDT</div><div class="at2">2 days ago</div></div>
+    </div>
+  </div>
+</main>
+
+<script>
+// ── TIMEFRAME DATA ─────────────────────────────────────────────
+const tabData = {
+  '24H': {
+    meta: 'Data from 2026-04-15 – 2026-04-28',
+    signups: 8, volume: '2,140,332.18', ftd: 4, traded: 31,
+    sc_signups: '+3.1%', sc_volume: '+2.2%', sc_ftd: '+1.8%', sc_traded: '+4.5%',
+    qs_signups: 8, qs_commission: '4.12', qs_traded: 31,
+    bars: [20,35,28,50,42,60,38,55,48,65,52,70,45,62,58,72,50,66,75,68]
+  },
+  '7D': {
+    meta: 'Data from 2026-04-28 – 2025-05-25',
+    signups: 34, volume: '12,384,187.58', ftd: 16, traded: 153,
+    sc_signups: '+6.4%', sc_volume: '+5.1%', sc_ftd: '+3.8%', sc_traded: '+9.2%',
+    qs_signups: 34, qs_commission: '24.58', qs_traded: 153,
+    bars: [25,40,35,58,45,70,50,78,60,82,65,88,70,80,75,90,68,85,92,78]
+  },
+  '1M': {
+    meta: 'Data from 2026-05-26 – 2026-07-01',
+    signups: 137, volume: '69,536,748.57', ftd: 64, traded: 508,
+    sc_signups: '+12.4%', sc_volume: '+8.7%', sc_ftd: '+5.2%', sc_traded: '+18.1%',
+    qs_signups: 137, qs_commission: '133.27', qs_traded: 508,
+    bars: [30,45,40,62,52,74,58,80,65,88,72,94,78,86,82,95,75,88,100,85]
+  },
+  '1Y': {
+    meta: 'Data from 2026-01-26 – 2026-07-01',
+    signups: 775, volume: '442,594,948.85', ftd: 421, traded: 879,
+    sc_signups: '+28.4%', sc_volume: '+31.2%', sc_ftd: '+22.5%', sc_traded: '+35.8%',
+    qs_signups: 775, qs_commission: '133.27', qs_traded: 879,
+    bars: [20,30,25,40,35,52,42,60,50,70,58,78,65,86,72,94,80,100,88,96]
+  },
+  'All': {
+    meta: 'All time data',
+    signups: 1204, volume: '982,431,276.44', ftd: 683, traded: 1451,
+    sc_signups: '+100%', sc_volume: '+100%', sc_ftd: '+100%', sc_traded: '+100%',
+    qs_signups: 1204, qs_commission: '133.27', qs_traded: 1451,
+    bars: [15,22,18,30,25,40,35,52,44,62,54,72,62,82,70,90,78,100,88,95]
+  }
+};
+
+// ── BUILD CHART ────────────────────────────────────────────────
+function buildChart(bars) {
+  const ca = document.getElementById('chartArea');
+  ca.innerHTML = '';
+  const max = Math.max(...bars);
+  bars.forEach((h, i) => {
+    const b = document.createElement('div');
+    b.className = 'cb' + (h/max > 0.6 ? ' lit' : '');
+    b.style.height = Math.round((h/max)*100) + '%';
+    ca.appendChild(b);
+  });
+}
+
+// ── ANIMATED NUMBER UPDATE ─────────────────────────────────────
+function animateNum(el, newVal) {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(4px)';
+  setTimeout(() => {
+    el.innerHTML = newVal;
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+    el.style.transition = 'opacity .25s, transform .25s';
+  }, 150);
+}
+
+// ── SET TAB ────────────────────────────────────────────────────
+function setTab(el, period) {
+  document.querySelectorAll('.ttab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  const d = tabData[period];
+
+  document.getElementById('ovMeta').innerHTML =
+    '<i class="ti ti-calendar" style="font-size:12px"></i> ' + d.meta;
+
+  animateNum(document.getElementById('st-signups'), d.signups.toLocaleString());
+  animateNum(document.getElementById('st-volume'), d.volume + '<span class="su"> USDT</span>');
+  animateNum(document.getElementById('st-ftd'), d.ftd.toLocaleString());
+  animateNum(document.getElementById('st-traded'), d.traded.toLocaleString());
+
+  document.getElementById('sc-signups').innerHTML = '<i class="ti ti-trending-up"></i> ' + d.sc_signups;
+  document.getElementById('sc-volume').innerHTML = '<i class="ti ti-trending-up"></i> ' + d.sc_volume;
+  document.getElementById('sc-ftd').innerHTML = '<i class="ti ti-trending-up"></i> ' + d.sc_ftd;
+  document.getElementById('sc-traded').innerHTML = '<i class="ti ti-trending-up"></i> ' + d.sc_traded;
+
+  animateNum(document.getElementById('qs-signups'), d.qs_signups.toLocaleString());
+  animateNum(document.getElementById('qs-commission'), d.qs_commission + ' <span style="font-size:12px;color:var(--muted);font-weight:400;">USDT</span>');
+  animateNum(document.getElementById('qs-traded'), d.qs_traded.toLocaleString());
+
+  buildChart(d.bars);
+}
+
+// ── COPY REF ───────────────────────────────────────────────────
+function copyRef(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'COPIED!';
+    btn.style.background = 'var(--green)';
+    btn.style.color = '#fff';
+    setTimeout(() => { btn.textContent = 'COPY'; btn.style.background = ''; btn.style.color = ''; }, 2000);
+  });
+}
+
+// Init with 1M tab
+buildChart(tabData['1M'].bars);
+if(window.innerWidth < 900) document.getElementById('mobBtn').style.display = 'flex';
+</script>
+</body>
+</html>

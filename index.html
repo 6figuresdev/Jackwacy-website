@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BYBIT Affiliate — My Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+:root{--gold:#F0B429;--gold-dark:#D49A17;--text:#1A1D2E;--text2:#4B5470;--muted:#8A91A8;--border:#E8EAF0;--bg:#F7F8FA;--white:#FFFFFF;--green:#0CAB6B;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
+
+/* TOP NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;border-bottom:1px solid var(--border);background:var(--white);}
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-brand .logo-text{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-0.01em;}
+.nav-brand .logo-tag{font-size:10px;font-weight:700;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;border:1.5px solid var(--gold);padding:2px 7px;border-radius:4px;}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;}
+.nav-links a:hover{color:var(--text);}
+.nav-apply{background:var(--gold);color:#000;font-size:13px;font-weight:700;padding:8px 22px;border-radius:7px;text-decoration:none;transition:background .2s;}
+.nav-apply:hover{background:var(--gold-dark);}
+
+/* MAIN */
+.page{display:flex;flex:1;min-height:calc(100vh - 58px);}
+
+/* LEFT */
+.left{flex:1;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:60px 56px;position:relative;overflow:hidden;}
+.left::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(240,180,41,0.07);pointer-events:none;}
+.left::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:rgba(12,171,107,0.05);pointer-events:none;}
+.left-inner{width:100%;max-width:420px;position:relative;z-index:1;}
+
+/* Preview mockup card */
+.preview-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 8px 40px rgba(26,29,46,0.12);margin-bottom:36px;}
+.preview-card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.preview-card-hdr .pc-title{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.05em;}
+.coin-dots{display:flex;gap:8px;}
+.cdot{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);font-weight:500;}
+.cdot span{width:8px;height:8px;border-radius:50%;}
+.cdot span.btc{background:#F7931A;}
+.cdot span.eth{background:#627EEA;}
+.cdot span.usdt{background:#26A17B;}
+.mini-bars{display:flex;align-items:flex-end;gap:3px;height:52px;margin-bottom:14px;}
+.mb{flex:1;border-radius:2px 2px 0 0;background:var(--gold);transition:height .4s;}
+.preview-cta{background:var(--gold);color:#000;text-align:center;padding:9px;border-radius:8px;font-size:12px;font-weight:700;}
+.promo-bubble{position:absolute;bottom:-10px;right:-10px;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:10px 14px;box-shadow:0 4px 16px rgba(0,0,0,0.10);z-index:2;}
+.promo-bubble strong{color:var(--gold);display:block;font-size:16px;font-weight:800;}
+.promo-bubble span{font-size:10px;color:var(--muted);}
+.left-tagline h2{font-size:20px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:8px;}
+.left-tagline p{font-size:13px;color:var(--muted);line-height:1.65;}
+.dot-row{display:flex;gap:6px;margin-top:20px;}
+.dot-ind{width:22px;height:3px;border-radius:2px;background:var(--border);}
+.dot-ind.on{background:var(--gold);}
+
+/* RIGHT - LOGIN FORM */
+.right{width:480px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 56px;background:var(--white);border-left:1px solid var(--border);}
+.form-title{font-size:28px;font-weight:700;color:var(--text);margin-bottom:28px;align-self:flex-start;}
+.form-wrap{width:100%;}
+.field{margin-bottom:16px;}
+.field input{
+  width:100%;background:var(--white);border:1.5px solid var(--border);
+  color:var(--text);font-family:'Inter',sans-serif;font-size:14px;font-weight:400;
+  padding:13px 16px;border-radius:8px;outline:none;transition:border-color .2s;
+}
+.field input:focus{border-color:var(--gold);}
+.field input::placeholder{color:var(--muted);}
+.forgot-row{text-align:right;margin-bottom:20px;}
+.forgot-row a{font-size:12px;color:var(--gold);text-decoration:none;font-weight:500;}
+.btn-login{
+  width:100%;background:var(--gold);color:#000;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:14px;
+  padding:14px;border:none;border-radius:8px;cursor:pointer;
+  letter-spacing:0.03em;transition:background .2s;text-transform:uppercase;
+}
+.btn-login:hover{background:var(--gold-dark);}
+.login-terms{font-size:11px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.65;}
+.login-terms a{color:var(--gold);text-decoration:none;}
+.login-terms a:hover{text-decoration:underline;}
+.error-msg{display:none;background:#fff0f0;border:1px solid #fdd;color:var(--red,#E24B4A);font-size:12px;padding:10px 14px;border-radius:7px;margin-bottom:14px;}
+.error-msg.show{display:block;}
+
+@media(max-width:860px){
+  .left{display:none;}
+  .right{width:100%;border-left:none;padding:40px 24px;}
+  nav{padding:0 24px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <span class="logo-text">JACKWAYCYNOTA DEV</span>
+    <span class="logo-tag">Affiliates</span>
+  </div>
+  <div class="nav-links">
+    <a href="#">FAQ</a>
+    <a href="#">Contact Us</a>
+    <a href="#" style="color:var(--text);">Log In</a>
+    <a href="#" class="nav-apply">Apply</a>
+  </div>
+</nav>
+
+<div class="page">
+  <!-- LEFT PANEL -->
+  <div class="left">
+    <div class="left-inner">
+      <div class="preview-card" style="position:relative;">
+        <div class="preview-card-hdr">
+          <span class="pc-title">MY TOKEN BUNDLE</span>
+          <div class="coin-dots">
+            <div class="cdot"><span class="btc"></span>BTC</div>
+            <div class="cdot"><span class="eth"></span>ETH</div>
+            <div class="cdot"><span class="usdt"></span>USDT</div>
+          </div>
+        </div>
+        <div class="mini-bars" id="miniBars"></div>
+        <div class="preview-cta">🚀 $30,000 IN REWARDS — JOIN NOW</div>
+        <div class="promo-bubble">
+          <strong>442M+ USDT</strong>
+          <span>clients' volume</span>
+        </div>
+      </div>
+      <div class="left-tagline">
+        <h2>Grow your audience with the<br/>Jackwaycynota Dev affiliate portal</h2>
+        <p>Gain insights, access campaigns,<br/>assets, and products.</p>
+        <div class="dot-row">
+          <div class="dot-ind on"></div>
+          <div class="dot-ind"></div>
+          <div class="dot-ind"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL - LOGIN -->
+  <div class="right">
+    <div class="form-title">Log In</div>
+    <div class="form-wrap">
+      <div class="error-msg" id="errorMsg">Please enter your email address and password.</div>
+      <div class="field">
+        <input type="email" id="emailInput" placeholder="Email Address" autocomplete="email"/>
+      </div>
+      <div class="field">
+        <input type="password" id="passInput" placeholder="Password" autocomplete="current-password"/>
+      </div>
+      <div class="forgot-row"><a href="#">Forgot Password?</a></div>
+      <button class="btn-login" onclick="handleLogin()">LOG IN</button>
+      <div class="login-terms">
+        By continuing, you agree to our <a href="#">Affiliate Agreement</a> and <a href="#">Privacy Policy</a>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Build mini bars
+const mb = document.getElementById('miniBars');
+[22,38,28,50,35,62,44,70,52,80,60,90,68,100,75].forEach((h,i)=>{
+  const b = document.createElement('div');
+  b.className='mb'; b.style.height=h+'%'; b.style.opacity=h>60?'0.85':'0.3';
+  mb.appendChild(b);
+});
+
+function handleLogin(){
+  const email = document.getElementById('emailInput').value.trim();
+  const pass = document.getElementById('passInput').value.trim();
+  const err = document.getElementById('errorMsg');
+  if(!email || !pass){
+    err.classList.add('show');
+    return;
+  }
+  err.classList.remove('show');
+  // Simulate brief loading then redirect
+  const btn = document.querySelector('.btn-login');
+  btn.textContent = 'Logging in...';
+  btn.style.opacity = '0.8';
+  setTimeout(()=>{ window.location.href='dashboard.html'; }, 700);
+}
+
+// Allow Enter key to submit
+document.addEventListener('keydown', e=>{ if(e.key==='Enter') handleLogin(); });
+</script>
+</body>
+</html>

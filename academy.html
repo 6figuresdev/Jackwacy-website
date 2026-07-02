@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BYBIT affiliate — My Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+
+:root{
+  --gold:#F0B429;--gold-dark:#D49A17;--gold-soft:rgba(240,180,41,0.10);
+  --bg:#F7F8FA;--white:#FFFFFF;
+  --sidebar-bg:#1A1D2E;--sidebar-text:#8A91A8;
+  --text:#1A1D2E;--text2:#4B5470;--muted:#8A91A8;
+  --border:#E8EAF0;--border2:#DDE0EA;
+  --green:#0CAB6B;--green-soft:rgba(12,171,107,0.10);
+  --red:#E24B4A;--red-soft:rgba(226,75,74,0.09);
+  --shadow:0 1px 4px rgba(26,29,46,0.06);
+  --shadow-card:0 2px 10px rgba(26,29,46,0.07);
+  --sidebar:220px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;}
+.sidebar{width:var(--sidebar);background:var(--sidebar-bg,#1A1D2E);border-right:none;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50;overflow-y:auto;}
+.sidebar-logo{padding:20px 18px 16px;border-bottom:1px solid var(--border2);}
+.sidebar-logo .brand{color:var(--gold);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;}
+.sidebar-logo .sub{color:#fff;font-size:13px;font-weight:600;color:var(--text);margin-top:2px;font-family:'Inter',sans-serif;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;color:#8A91A8;cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none;}
+.nav-item:hover{background:var(--bg);color:var(--text);}
+.nav-item.active{background:rgba(240,180,41,0.10);color:var(--gold);border-left:2px solid var(--gold);font-weight:600;}
+.nav-item i{font-size:16px;flex-shrink:0;}
+.nav-badge{margin-left:auto;background:var(--gold);color:#000;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;}
+.sidebar-footer{margin-top:auto;border-top:1px solid rgba(255,255,255,0.07);padding:14px 18px;}
+.help-text{font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:10px;line-height:1.5;}
+.user-chip{display:flex;align-items:flex-start;gap:9px;}
+.avatar{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#e8823a);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:11px;font-weight:800;color:#000;flex-shrink:0;}
+.user-name{font-size:11px;font-weight:600;color:#fff;}
+.user-email{font-size:9px;color:rgba(255,255,255,0.38);margin-top:1px;}
+.user-rank{display:inline-block;font-size:8px;background:var(--gold-soft);color:var(--gold);border-radius:4px;padding:2px 5px;margin-top:3px;font-weight:600;}
+.topbar{position:fixed;top:0;left:var(--sidebar);right:0;height:56px;background:var(--white);border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:40;}
+.topbar-left{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--muted);}
+.topbar-right{display:flex;align-items:center;gap:16px;}
+.lang-btn{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted2);cursor:pointer;padding:6px 10px;border-radius:6px;background:var(--bg);border:1px solid var(--border);}
+.icon-btn{width:34px;height:34px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted2);}
+.topbar-avatar{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#e8823a);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:11px;font-weight:800;color:#000;cursor:pointer;text-decoration:none;}
+.main{margin-left:var(--sidebar);margin-top:56px;padding:28px 32px;flex:1;}
+.page-title{font-family:'Inter',sans-serif;font-size:24px;font-weight:800;margin-bottom:8px;}
+.page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.card{background:var(--white);border:1px solid var(--border);box-shadow:0 2px 10px rgba(26,29,46,0.07);border-radius:14px;padding:20px 22px;margin-bottom:16px;}
+.card-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+/* Progress summary */
+.progress-summary{background:linear-gradient(135deg,rgba(240,180,41,0.06),rgba(12,171,107,0.04));border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:16px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.prog-circle{width:80px;height:80px;border-radius:50%;border:5px solid var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.prog-pct{font-family:'Inter',sans-serif;font-size:18px;font-weight:800;color:var(--gold);}
+.prog-info h3{font-family:'Inter',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;}
+.prog-info p{font-size:12px;color:var(--muted);line-height:1.6;}
+/* Module cards */
+.module-card{background:var(--bg);border:1px solid var(--border2);border-radius:12px;padding:18px;transition:border-color .2s,transform .2s;cursor:pointer;}
+.module-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+.module-card.completed{border-color:var(--green);}
+.mod-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;}
+.mod-icon.done{background:var(--green-soft);color:var(--green);}
+.mod-icon.active{background:var(--gold-soft);color:var(--gold);}
+.mod-icon.locked{background:rgba(150,150,150,0.08);color:var(--muted);}
+.mod-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;margin-bottom:5px;}
+.mod-desc{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.mod-meta{display:flex;align-items:center;justify-content:space-between;}
+.mod-duration{font-size:10px;color:var(--muted2);display:flex;align-items:center;gap:4px;}
+.mod-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;}
+.mod-status.done{background:var(--green-soft);color:var(--green);}
+.mod-status.inprogress{background:var(--gold-soft);color:var(--gold);}
+.mod-status.locked{background:rgba(150,150,150,0.1);color:var(--muted);}
+.prog-bar-mini{height:3px;background:var(--border);border-radius:2px;margin-top:10px;overflow:hidden;}
+.prog-bar-fill{height:100%;border-radius:2px;background:var(--gold);}
+.prog-bar-fill.green{background:var(--green);}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-logo"><div class="brand">BYBIT affiliate</div><div class="sub">Affiliates</div></div>
+  <nav style="padding:10px 0;">
+    <a class="nav-item" href="dashboard.html"><i class="ti ti-layout-dashboard"></i> Overview</a>
+    <a class="nav-item" href="balance.html"><i class="ti ti-wallet"></i> Account Balance</a>
+    <a class="nav-item" href="commissions.html"><i class="ti ti-percentage"></i> Commissions <span class="nav-badge">3</span></a>
+    <a class="nav-item" href="promotion.html"><i class="ti ti-speakerphone"></i> Promotion Tools</a>
+    <a class="nav-item" href="campaigns.html"><i class="ti ti-flag"></i> Campaigns</a>
+    <a class="nav-item" href="performance.html"><i class="ti ti-chart-line"></i> My Performance</a>
+    <a class="nav-item active" href="academy.html"><i class="ti ti-school"></i> Academy</a>
+    <a class="nav-item" href="resources.html"><i class="ti ti-book-2"></i> Resources</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="help-text">Need help? Contact your account manager</div>
+    <div class="user-chip"><div class="avatar">JW</div><div><div class="user-name">BYBIT affiliate</div><div class="user-email">jackwaycynotadev</div><div class="user-rank">Honourable Minister</div></div></div>
+  </div>
+</aside>
+<div class="topbar">
+  <span class="topbar-left">Academy</span>
+  <div class="topbar-right">
+    <div class="lang-btn"><i class="ti ti-world" style="font-size:14px"></i> EN</div>
+    <div class="icon-btn"><i class="ti ti-bell" style="font-size:16px"></i></div>
+    <a href="profile.html" class="topbar-avatar" text-decoration:none>JW</a>
+  </div>
+</div>
+<main class="main">
+  <div class="page-title">Affiliate Academy</div>
+  <div class="page-sub">Level up your affiliate game with expert-curated courses</div>
+
+  <div class="progress-summary">
+    <div class="prog-circle"><div class="prog-pct">60%</div></div>
+    <div class="prog-info">
+      <h3>Your Learning Progress</h3>
+      <p>You've completed 3 of 5 modules. Keep going — <br/>finishing all modules unlocks the Elite Affiliate badge.</p>
+    </div>
+    <div style="margin-left:auto;text-align:center;">
+      <div style="font-family:'Inter',sans-serif;font-size:28px;font-weight:800;color:var(--gold);">3/5</div>
+      <div style="font-size:11px;color:var(--muted);">Modules Complete</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Core Curriculum</div>
+    <div class="grid-3">
+      <div class="module-card completed">
+        <div class="mod-icon done"><i class="ti ti-check"></i></div>
+        <div class="mod-title">Affiliate Marketing 101</div>
+        <div class="mod-desc">Learn the fundamentals of affiliate marketing, how referrals work, and how to earn your first commission.</div>
+        <div class="mod-meta"><span class="mod-duration"><i class="ti ti-clock"></i> 25 mins</span><span class="mod-status done">✓ Completed</span></div>
+        <div class="prog-bar-mini"><div class="prog-bar-fill green" style="width:100%"></div></div>
+      </div>
+      <div class="module-card completed">
+        <div class="mod-icon done"><i class="ti ti-check"></i></div>
+        <div class="mod-title">Understanding Your Dashboard</div>
+        <div class="mod-desc">Master your affiliate portal — balance, commission tracking, referral links, and performance analytics.</div>
+        <div class="mod-meta"><span class="mod-duration"><i class="ti ti-clock"></i> 20 mins</span><span class="mod-status done">✓ Completed</span></div>
+        <div class="prog-bar-mini"><div class="prog-bar-fill green" style="width:100%"></div></div>
+      </div>
+      <div class="module-card completed">
+        <div class="mod-icon done"><i class="ti ti-check"></i></div>
+        <div class="mod-title">Building Your Referral Network</div>
+        <div class="mod-desc">Strategies to grow your audience through social media, YouTube, Telegram, and community building.</div>
+        <div class="mod-meta"><span class="mod-duration"><i class="ti ti-clock"></i> 35 mins</span><span class="mod-status done">✓ Completed</span></div>
+        <div class="prog-bar-mini"><div class="prog-bar-fill green" style="width:100%"></div></div>
+      </div>
+      <div class="module-card" onclick="startModule(this)">
+        <div class="mod-icon active"><i class="ti ti-play"></i></div>
+        <div class="mod-title">Advanced Commission Strategies</div>
+        <div class="mod-desc">Learn how to maximize earnings through tier upgrades, sub-affiliates, and campaign participation.</div>
+        <div class="mod-meta"><span class="mod-duration"><i class="ti ti-clock"></i> 40 mins</span><span class="mod-status inprogress">In Progress</span></div>
+        <div class="prog-bar-mini"><div class="prog-bar-fill" style="width:45%"></div></div>
+      </div>
+      <div class="module-card">
+        <div class="mod-icon locked"><i class="ti ti-lock"></i></div>
+        <div class="mod-title">Content Creation for Traders</div>
+        <div class="mod-desc">Create compelling content that converts — video scripts, blog posts, and social media strategies for crypto audiences.</div>
+        <div class="mod-meta"><span class="mod-duration"><i class="ti ti-clock"></i> 50 mins</span><span class="mod-status locked">Locked</span></div>
+        <div class="prog-bar-mini"><div class="prog-bar-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+function startModule(card){
+  alert('Resuming: Advanced Commission Strategies...');
+}
+</script>
+</body>
+</html>

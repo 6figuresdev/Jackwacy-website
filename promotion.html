@@ -1,179 +1,640 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>BYBIT affliate — My Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYBIT affliate — My Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    :root {
+      --gold: #F0B429;
+      --gold-dark: #D49A17;
+      --gold-soft: rgba(240, 180, 41, 0.10);
+      --bg: #F7F8FA;
+      --white: #FFFFFF;
+      --sidebar-bg: #1A1D2E;
+      --sidebar-text: #8A91A8;
+      --text: #1A1D2E;
+      --text2: #4B5470;
+      --muted: #8A91A8;
+      --border: #E8EAF0;
+      --border2: #DDE0EA;
+      --green: #0CAB6B;
+      --green-soft: rgba(12, 171, 107, 0.10);
+      --red: #E24B4A;
+      --red-soft: rgba(226, 75, 74, 0.09);
+      --shadow: 0 1px 4px rgba(26, 29, 46, 0.06);
+      --shadow-card: 0 2px 10px rgba(26, 29, 46, 0.07);
+      --sidebar: 220px;
+    }
 
-:root{
-  --gold:#F0B429;--gold-dark:#D49A17;--gold-soft:rgba(240,180,41,0.10);
-  --bg:#F7F8FA;--white:#FFFFFF;
-  --sidebar-bg:#1A1D2E;--sidebar-text:#8A91A8;
-  --text:#1A1D2E;--text2:#4B5470;--muted:#8A91A8;
-  --border:#E8EAF0;--border2:#DDE0EA;
-  --green:#0CAB6B;--green-soft:rgba(12,171,107,0.10);
-  --red:#E24B4A;--red-soft:rgba(226,75,74,0.09);
-  --shadow:0 1px 4px rgba(26,29,46,0.06);
-  --shadow-card:0 2px 10px rgba(26,29,46,0.07);
-  --sidebar:220px;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;}
-.sidebar{width:var(--sidebar);background:var(--sidebar-bg,#1A1D2E);border-right:none;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50;overflow-y:auto;}
-.sidebar-logo{padding:20px 18px 16px;border-bottom:1px solid var(--border2);}
-.sidebar-logo .brand{color:var(--gold);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;}
-.sidebar-logo .sub{color:#fff;font-size:13px;font-weight:600;color:var(--text);margin-top:2px;font-family:'Inter',sans-serif;}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;color:#8A91A8;cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none;}
-.nav-item:hover{background:var(--bg);color:var(--text);}
-.nav-item.active{background:rgba(240,180,41,0.10);color:var(--gold);border-left:2px solid var(--gold);font-weight:600;}
-.nav-item i{font-size:16px;flex-shrink:0;}
-.nav-badge{margin-left:auto;background:var(--gold);color:#000;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;}
-.sidebar-footer{margin-top:auto;border-top:1px solid rgba(255,255,255,0.07);padding:14px 18px;}
-.help-text{font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:10px;line-height:1.5;}
-.user-chip{display:flex;align-items:flex-start;gap:9px;}
-.avatar{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#e8823a);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:11px;font-weight:800;color:#000;flex-shrink:0;}
-.user-name{font-size:11px;font-weight:600;color:#fff;}
-.user-email{font-size:9px;color:rgba(255,255,255,0.38);margin-top:1px;}
-.user-rank{display:inline-block;font-size:8px;background:var(--gold-soft);color:var(--gold);border-radius:4px;padding:2px 5px;margin-top:3px;font-weight:600;}
-.topbar{position:fixed;top:0;left:var(--sidebar);right:0;height:56px;background:var(--white);border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:40;}
-.topbar-left{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--muted);}
-.topbar-right{display:flex;align-items:center;gap:16px;}
-.lang-btn{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted2);cursor:pointer;padding:6px 10px;border-radius:6px;background:var(--bg);border:1px solid var(--border);}
-.icon-btn{width:34px;height:34px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted2);}
-.topbar-avatar{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--gold),#e8823a);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:11px;font-weight:800;color:#000;cursor:pointer;text-decoration:none;}
-.main{margin-left:var(--sidebar);margin-top:56px;padding:28px 32px;flex:1;}
-.page-title{font-family:'Inter',sans-serif;font-size:24px;font-weight:800;margin-bottom:8px;}
-.page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
-.card{background:var(--white);border:1px solid var(--border);box-shadow:0 2px 10px rgba(26,29,46,0.07);border-radius:14px;padding:20px 22px;margin-bottom:16px;}
-.card-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px;}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-/* Ref link block */
-.ref-block{background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:16px 18px;margin-bottom:12px;}
-.ref-block-label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;}
-.ref-code-big{font-family:'Inter',sans-serif;font-size:24px;font-weight:800;color:var(--text);margin-bottom:10px;}
-.ref-url-row{display:flex;align-items:center;gap:10px;background:var(--border);border:1px solid var(--border);border-radius:8px;padding:10px 14px;}
-.ref-url-text{font-size:12px;color:var(--muted2);flex:1;word-break:break-all;}
-.copy-btn{flex-shrink:0;background:var(--gold-soft);border:none;border-radius:5px;padding:5px 12px;font-size:11px;color:var(--gold);font-weight:700;cursor:pointer;transition:all .15s;}
-.copy-btn:hover{background:var(--gold);color:#000;}
-.edit-input{width:100%;background:var(--border);border:1.5px solid var(--border);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;padding:10px 14px;border-radius:8px;outline:none;transition:border-color .2s;margin-bottom:10px;}
-.edit-input:focus{border-color:var(--gold);}
-.btn-save{background:var(--gold);color:#000;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;padding:10px 22px;border:none;border-radius:8px;cursor:pointer;}
-.btn-save:hover{background:#D49A17;}
-/* Sub-affiliate table */
-.tx-table{width:100%;border-collapse:collapse;}
-.tx-table th{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);}
-.tx-table td{padding:13px 12px;font-size:13px;border-bottom:1px solid var(--border2);}
-.tx-table tr:last-child td{border-bottom:none;}
-.tx-table tr:hover td{background:var(--bg);}
-/* QR placeholder */
-.qr-box{width:120px;height:120px;background:var(--bg);border:2px dashed var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;text-align:center;margin-bottom:12px;}
-/* Stats row */
-.mini-stats{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;}
-.mini-stat{flex:1;min-width:120px;background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;}
-.mini-stat label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:6px;}
-.mini-stat .val{color:var(--text);font-family:'Inter',sans-serif;font-size:20px;font-weight:800;color:var(--text);}
-</style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: var(--sidebar);
+      background: var(--sidebar-bg, #1A1D2E);
+      border-right: none;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 50;
+      overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid var(--border2);
+    }
+
+    .sidebar-logo .brand {
+      color: var(--gold);
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .sidebar-logo .sub {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 2px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      font-size: 13px;
+      color: #8A91A8;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: all .15s;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: rgba(240, 180, 41, 0.10);
+      color: var(--gold);
+      border-left: 2px solid var(--gold);
+      font-weight: 600;
+    }
+
+    .nav-item i {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--gold);
+      color: #000;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 14px 18px;
+    }
+
+    .help-text {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.35);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), #e8823a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      color: #000;
+      flex-shrink: 0;
+    }
+
+    .user-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .user-email {
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.38);
+      margin-top: 1px;
+    }
+
+    .user-rank {
+      display: inline-block;
+      font-size: 8px;
+      background: var(--gold-soft);
+      color: var(--gold);
+      border-radius: 4px;
+      padding: 2px 5px;
+      margin-top: 3px;
+      font-weight: 600;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: var(--sidebar);
+      right: 0;
+      height: 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 40;
+    }
+
+    .topbar-left {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--muted2);
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--muted2);
+    }
+
+    .topbar-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), #e8823a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      color: #000;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .main {
+      margin-left: var(--sidebar);
+      margin-top: 56px;
+      padding: 28px 32px;
+      flex: 1;
+    }
+
+    .page-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .page-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(26, 29, 46, 0.07);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    /* Ref link block */
+    .ref-block {
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+    }
+
+    .ref-block-label {
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .ref-code-big {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .ref-url-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+
+    .ref-url-text {
+      font-size: 12px;
+      color: var(--muted2);
+      flex: 1;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      flex-shrink: 0;
+      background: var(--gold-soft);
+      border: none;
+      border-radius: 5px;
+      padding: 5px 12px;
+      font-size: 11px;
+      color: var(--gold);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .copy-btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .edit-input {
+      width: 100%;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color .2s;
+      margin-bottom: 10px;
+    }
+
+    .edit-input:focus {
+      border-color: var(--gold);
+    }
+
+    .btn-save {
+      background: var(--gold);
+      color: #000;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn-save:hover {
+      background: #D49A17;
+    }
+
+    /* Sub-affiliate table */
+    .tx-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tx-table th {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tx-table td {
+      padding: 13px 12px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border2);
+    }
+
+    .tx-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tx-table tr:hover td {
+      background: var(--bg);
+    }
+
+    /* QR placeholder */
+    .qr-box {
+      width: 120px;
+      height: 120px;
+      background: var(--bg);
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    /* Stats row */
+    .mini-stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .mini-stat {
+      flex: 1;
+      min-width: 120px;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .mini-stat label {
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .mini-stat .val {
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+    }
+  </style>
 </head>
+
 <body>
-<aside class="sidebar">
-  <div class="sidebar-logo"><div class="brand">BYBIT affiliate</div><div class="sub">Affiliates</div></div>
-  <nav style="padding:10px 0;">
-    <a class="nav-item" href="dashboard.html"><i class="ti ti-layout-dashboard"></i> Overview</a>
-    <a class="nav-item" href="balance.html"><i class="ti ti-wallet"></i> Account Balance</a>
-    <a class="nav-item" href="commissions.html"><i class="ti ti-percentage"></i> Commissions <span class="nav-badge">3</span></a>
-    <a class="nav-item active" href="promotion.html"><i class="ti ti-speakerphone"></i> Promotion Tools</a>
-    <a class="nav-item" href="campaigns.html"><i class="ti ti-flag"></i> Campaigns</a>
-    <a class="nav-item" href="performance.html"><i class="ti ti-chart-line"></i> My Performance</a>
-    <a class="nav-item" href="academy.html"><i class="ti ti-school"></i> Academy</a>
-    <a class="nav-item" href="resources.html"><i class="ti ti-book-2"></i> Resources</a>
-  </nav>
-  <div class="sidebar-footer">
-    <div class="help-text">Need help? Contact your account manager</div>
-    <div class="user-chip"><div class="avatar">JW</div><div><div class="user-name">BYBIT affiliate</div><div class="user-email">rqqyjpj</div><div class="user-rank">Honourable Minister</div></div></div>
-  </div>
-</aside>
-<div class="topbar">
-  <span class="topbar-left">Promotion Tools</span>
-  <div class="topbar-right">
-    <div class="lang-btn"><i class="ti ti-world" style="font-size:14px"></i> EN</div>
-    <div class="icon-btn"><i class="ti ti-bell" style="font-size:16px"></i></div>
-    <a href="profile.html" class="topbar-avatar" text-decoration:none>JW</a>
-  </div>
-</div>
-<main class="main">
-  <div class="page-title">Promotion Tools</div>
-  <div class="page-sub">Share your referral links and grow your affiliate network</div>
-
-  <div class="mini-stats">
-    <div class="mini-stat"><label>Total Referrals</label><div class="val">775</div></div>
-    <div class="mini-stat"><label>This Month</label><div class="val">137</div></div>
-    <div class="mini-stat"><label>Sub-Affiliates</label><div class="val">12</div></div>
-    <div class="mini-stat"><label>Conversion Rate</label><div class="val" style="color:var(--green)">54.3%</div></div>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">My Referral Link</div>
-      <div class="ref-block">
-        <div class="ref-block-label">Referral Code</div>
-        <div class="ref-code-big">rqqyjpj</div>
-        <div class="ref-block-label">Sign-Up Link</div>
-        <div class="ref-url-row">
-          <span class="ref-url-text">bybit.com/ref/rqqyjpj</span>
-          <button class="copy-btn" onclick="copyLink(this,'bybit.com/ref/rqqyjpj')">COPY</button>
-        </div>
-      </div>
-      <div class="ref-block">
-        <div class="ref-block-label">Direct Trading Link</div>
-        <div class="ref-url-row">
-          <span class="ref-url-text">bybit.com/trade?ref=rqqyjpj</span>
-          <button class="copy-btn" onclick="copyLink(this,'bybit.com/trade?ref=rqqyjpj')">COPY</button>
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">BYBIT affiliate</div>
+      <div class="sub">Affiliates</div>
+    </div>
+    <nav style="padding:10px 0;">
+      <a class="nav-item" href="dashboard.html"><i class="ti ti-layout-dashboard"></i> Overview</a>
+      <a class="nav-item" href="balance.html"><i class="ti ti-wallet"></i> Account Balance</a>
+      <a class="nav-item" href="commissions.html"><i class="ti ti-percentage"></i> Commissions <span
+          class="nav-badge">3</span></a>
+      <a class="nav-item active" href="promotion.html"><i class="ti ti-speakerphone"></i> Promotion Tools</a>
+      <a class="nav-item" href="campaigns.html"><i class="ti ti-flag"></i> Campaigns</a>
+      <a class="nav-item" href="performance.html"><i class="ti ti-chart-line"></i> My Performance</a>
+      <a class="nav-item" href="academy.html"><i class="ti ti-school"></i> Academy</a>
+      <a class="nav-item" href="resources.html"><i class="ti ti-book-2"></i> Resources</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="help-text">Need help? Contact your account manager</div>
+      <div class="user-chip">
+        <div class="avatar">Bybit</div>
+        <div>
+          <div class="user-name">BYBIT affiliate</div>
+          <div class="user-email">rqqyjpj</div>
+          <div class="user-rank"></div>
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-title">Personalize Referral Code</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Customize your referral code to make it memorable. You can change it once every 30 days.</div>
-      <label style="font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:6px;">New Referral Code</label>
-      <input class="edit-input" type="text" value="rqqyjpj" id="refCodeInput"/>
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-        <button class="btn-save" onclick="saveCode()">Save Changes</button>
-        <span style="font-size:11px;color:var(--muted);">Next change available: Oct 25, 2025</span>
-      </div>
-      <div style="margin-top:18px;border-top:1px solid var(--border2);padding-top:16px;">
-        <div class="ref-block-label">QR Code</div>
-        <div class="qr-box"><i class="ti ti-qrcode" style="font-size:36px;color:var(--border)"></i></div>
-        <button style="font-size:12px;color:var(--gold);background:transparent;border:none;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:5px;" onclick="alert('QR downloaded!')"><i class="ti ti-download"></i> Download QR Code</button>
-      </div>
+  </aside>
+  <div class="topbar">
+    <span class="topbar-left">Promotion Tools</span>
+    <div class="topbar-right">
+      <div class="lang-btn"><i class="ti ti-world" style="font-size:14px"></i> EN</div>
+      <div class="icon-btn"><i class="ti ti-bell" style="font-size:16px"></i></div>
+      <a href="profile.html" class="topbar-avatar" text-decoration:none>JW</a>
     </div>
   </div>
+  <main class="main">
+    <div class="page-title">Promotion Tools</div>
+    <div class="page-sub">Share your referral links and grow your affiliate network</div>
 
-  <div class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-      <div class="card-title" style="margin-bottom:0;">My Sub-Affiliates</div>
-      <button class="btn-save" style="font-size:12px;padding:8px 16px;" onclick="alert('Invite link copied!')">+ Invite Sub-Affiliate</button>
+    <div class="mini-stats">
+      <div class="mini-stat"><label>Total Referrals</label>
+        <div class="val">775</div>
+      </div>
+      <div class="mini-stat"><label>This Month</label>
+        <div class="val">137</div>
+      </div>
+      <div class="mini-stat"><label>Sub-Affiliates</label>
+        <div class="val">12</div>
+      </div>
+      <div class="mini-stat"><label>Conversion Rate</label>
+        <div class="val" style="color:var(--green)">54.3%</div>
+      </div>
     </div>
-    <table class="tx-table">
-      <thead><tr><th>Sub-Affiliate</th><th>Joined</th><th>Their Referrals</th><th>Volume Generated</th><th>Your Earnings</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td style="font-weight:600;">cryptoking_ng</td><td style="color:var(--muted)">apr 12, 2026</td><td>43</td><td style="color:var(--muted2)">12,440,000 USDT</td><td style="color:var(--green);font-weight:600;">+4.72 USDT</td><td><span style="color:var(--green);font-size:12px;font-weight:600;">Active</span></td></tr>
-        <tr><td style="font-weight:600;">tradeflex_hub</td><td style="color:var(--muted)">may 30, 2026</td><td>31</td><td style="color:var(--muted2)">8,120,000 USDT</td><td style="color:var(--green);font-weight:600;">+3.09 USDT</td><td><span style="color:var(--green);font-size:12px;font-weight:600;">Active</span></td></tr>
-        <tr><td style="font-weight:600;">fx_master_ade</td><td style="color:var(--muted)">jun 2, 2026</td><td>18</td><td style="color:var(--muted2)">4,380,000 USDT</td><td style="color:var(--green);font-weight:600;">+1.66 USDT</td><td><span style="color:var(--green);font-size:12px;font-weight:600;">Active</span></td></tr>
-        <tr><td style="font-weight:600;">investpro_lagos</td><td style="color:var(--muted)">jun 18, 2026</td><td>5</td><td style="color:var(--muted2)">980,000 USDT</td><td style="color:var(--muted2);font-weight:600;">+0.37 USDT</td><td><span style="color:var(--gold);font-size:12px;font-weight:600;">Warming Up</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-</main>
-<script>
-function copyLink(btn, text){
-  navigator.clipboard.writeText(text).then(()=>{
-    const orig = btn.textContent; btn.textContent='COPIED!'; btn.style.background='var(--green)'; btn.style.color='#000';
-    setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; btn.style.color=''; }, 2000);
-  });
-}
-function saveCode(){ const v = document.getElementById('refCodeInput').value; alert('Referral code updated to: ' + v); }
-</script>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">My Referral Link</div>
+        <div class="ref-block">
+          <div class="ref-block-label">Referral Code</div>
+          <div class="ref-code-big">rqqyjpj</div>
+          <div class="ref-block-label">Sign-Up Link</div>
+          <div class="ref-url-row">
+            <span class="ref-url-text">bybit.com/ref/rqqyjpj</span>
+            <button class="copy-btn" onclick="copyLink(this,'bybit.com/ref/rqqyjpj')">COPY</button>
+          </div>
+        </div>
+        <div class="ref-block">
+          <div class="ref-block-label">Direct Trading Link</div>
+          <div class="ref-url-row">
+            <span class="ref-url-text">bybit.com/trade?ref=rqqyjpj</span>
+            <button class="copy-btn" onclick="copyLink(this,'bybit.com/trade?ref=rqqyjpj')">COPY</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Personalize Referral Code</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Customize your referral code to make it
+          memorable. You can change it once every 30 days.</div>
+        <label
+          style="font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:6px;">New
+          Referral Code</label>
+        <input class="edit-input" type="text" value="rqqyjpj" id="refCodeInput" />
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <button class="btn-save" onclick="saveCode()">Save Changes</button>
+          <span style="font-size:11px;color:var(--muted);">july 1 2026</span>
+        </div>
+        <div style="margin-top:18px;border-top:1px solid var(--border2);padding-top:16px;">
+          <div class="ref-block-label">QR Code</div>
+          <div class="qr-box"><i class="ti ti-qrcode" style="font-size:36px;color:var(--border)"></i></div>
+          <button
+            style="font-size:12px;color:var(--gold);background:transparent;border:none;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:5px;"
+            onclick="alert('QR downloaded!')"><i class="ti ti-download"></i> Download QR Code</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div class="card-title" style="margin-bottom:0;">My Sub-Affiliates</div>
+        <button class="btn-save" style="font-size:12px;padding:8px 16px;" onclick="alert('Invite link copied!')">+
+          Invite Sub-Affiliate</button>
+      </div>
+      <table class="tx-table">
+        <thead>
+          <tr>
+            <th>Sub-Affiliate</th>
+            <th>Joined</th>
+            <th>Their Referrals</th>
+            <th>Volume Generated</th>
+            <th>Your Earnings</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">cryptoking_ng</td>
+            <td style="color:var(--muted)">apr 12, 2026</td>
+            <td>43</td>
+            <td style="color:var(--muted2)">12,440,000 USDT</td>
+            <td style="color:var(--green);font-weight:600;">+4.72 USDT</td>
+            <td><span style="color:var(--green);font-size:12px;font-weight:600;">Active</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">tradeflex_hub</td>
+            <td style="color:var(--muted)">may 30, 2026</td>
+            <td>31</td>
+            <td style="color:var(--muted2)">8,120,000 USDT</td>
+            <td style="color:var(--green);font-weight:600;">+3.09 USDT</td>
+            <td><span style="color:var(--green);font-size:12px;font-weight:600;">Active</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">fx_master_ade</td>
+            <td style="color:var(--muted)">jun 2, 2026</td>
+            <td>18</td>
+            <td style="color:var(--muted2)">4,380,000 USDT</td>
+            <td style="color:var(--green);font-weight:600;">+1.66 USDT</td>
+            <td><span style="color:var(--green);font-size:12px;font-weight:600;">Active</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">investpro_lagos</td>
+            <td style="color:var(--muted)">jun 18, 2026</td>
+            <td>5</td>
+            <td style="color:var(--muted2)">980,000 USDT</td>
+            <td style="color:var(--muted2);font-weight:600;">+0.37 USDT</td>
+            <td><span style="color:var(--gold);font-size:12px;font-weight:600;">Warming Up</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script>
+    function copyLink(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent; btn.textContent = 'COPIED!'; btn.style.background = 'var(--green)'; btn.style.color = '#000';
+        setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 2000);
+      });
+    }
+    function saveCode() { const v = document.getElementById('refCodeInput').value; alert('Referral code updated to: ' + v); }
+  </script>
 </body>
+
 </html>
